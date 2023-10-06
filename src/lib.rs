@@ -12,6 +12,13 @@ mod tests {
     use super::pack::*;
     use super::unpack::*;
 
+    //  | HEX               | DECIMAL 
+    //  | ----------------- | -----------------
+    //  | 0xFF00AB08        | 4278233864
+    //  | 0x08AB00FF        | 145424639
+    //  | 0x0102            | 258
+    //  | 0xFF00            | 65280
+
     #[derive(Debug, ByteSize, ByteUnpack)]
     pub struct TestUnpack {
         pub u8_field: u8,
