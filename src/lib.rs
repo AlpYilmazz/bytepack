@@ -5,6 +5,8 @@ pub mod unpack;
 
 #[cfg(test)]
 mod tests {
+    use std::rc::Rc;
+
     use bytepack_proc_macro::{BytePack, ByteSize, ByteUnpack};
 
     use super::base::*;
@@ -38,7 +40,7 @@ mod tests {
         pub u8_field: u8,
         pub leu32_field: LEu32,
         pub arr3_u32_field: [u32; 3],
-        pub box2_u16_field: Box<[u16; 2]>,
+        pub box2_u16_field: Rc<[u16; 2]>,
     }
 
     fn new_test_struct() -> TestStruct {
@@ -46,13 +48,17 @@ mod tests {
             u8_field: 0x05,
             leu32_field: LEu32(0xFF00AB08),
             arr3_u32_field: [1, 2, 3],
-            box2_u16_field: Box::new([5, 6]),
+            box2_u16_field: Rc::new([5, 6]),
         }
     }
 
     #[test]
     fn test_main() {
         let test_struct = new_test_struct();
+        println!("{}, {}, {}, {}",
+            &test_struct.u8_field.byte_size(), &test_struct.leu32_field.byte_size(),
+            &test_struct.arr3_u32_field.byte_size(), &test_struct.box2_u16_field.byte_size(),
+        );
 
         dbg!(&test_struct);
 

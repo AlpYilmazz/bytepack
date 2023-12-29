@@ -23,7 +23,7 @@ pub fn impl_byteunpack(ast: &DeriveInput) -> TokenStream {
                     }
                 }
                 syn::Fields::Unnamed(_) => unimplemented!(),
-                syn::Fields::Unit => unimplemented!(),
+                syn::Fields::Unit => {},
             }
             let gen = quote! {
                 impl ByteUnpack for #name {
