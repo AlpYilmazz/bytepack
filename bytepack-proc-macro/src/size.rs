@@ -2,6 +2,37 @@ use proc_macro::TokenStream;
 use quote::{format_ident, quote};
 use syn::{parse_macro_input, DeriveInput};
 
+pub fn impl_constbytesize(ast: &DeriveInput) -> TokenStream {
+    let name = &ast.ident;
+    match &ast.data {
+        syn::Data::Struct(data) => {
+            let mut size_in_bytes = quote!(0);
+            match &data.fields {
+                syn::Fields::Named(fields) => {
+                    for field in fields.named.iter() {
+                        let field_type = &field.ty;
+                        size_in_bytes.extend(quote!(
+                            + <#field_type as ConstByteSize>::const_byte_size()
+                        ));
+                    }
+                }
+                syn::Fields::Unnamed(_) => unimplemented!(),
+                syn::Fields::Unit => {},
+            }
+            let gen = quote! {
+                impl ConstByteSize for #name {
+                    fn const_byte_size() -> usize {
+                        #size_in_bytes
+                    }
+                }
+            };
+            gen.into()
+        },
+        syn::Data::Enum(_) => unimplemented!(),
+        syn::Data::Union(_) => unimplemented!(),
+    }
+}
+
 pub fn impl_bytesize(ast: &DeriveInput) -> TokenStream {
     let name = &ast.ident;
     match &ast.data {

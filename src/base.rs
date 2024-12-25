@@ -108,6 +108,12 @@ imp_const_bytesize!(LEi32, 4);
 imp_const_bytesize!(LEi64, 8);
 imp_const_bytesize!(LEi128, 16);
 
+impl<T: ConstByteSize, const N: usize> ConstByteSize for [T; N] {
+    fn const_byte_size() -> usize {
+        T::const_byte_size() * N
+    }
+}
+
 impl<T: ByteSize, const N: usize> ByteSize for [T; N] {
     fn byte_size(&self) -> usize {
         self.iter().map(ByteSize::byte_size).sum()

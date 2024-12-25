@@ -7,6 +7,13 @@ mod pack;
 mod size;
 mod unpack;
 
+#[proc_macro_derive(ConstByteSize)]
+pub fn constbytesize_derive(input: TokenStream) -> TokenStream {
+    let ast = parse_macro_input!(input as DeriveInput);
+
+    size::impl_constbytesize(&ast)
+}
+
 #[proc_macro_derive(ByteSize)]
 pub fn bytesize_derive(input: TokenStream) -> TokenStream {
     let ast = parse_macro_input!(input as DeriveInput);
