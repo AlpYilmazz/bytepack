@@ -1,36 +1,36 @@
 use std::{cell::RefCell, ops::{Deref, DerefMut}, rc::Rc, marker::PhantomData, sync::Arc};
 
-#[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct LEu16(pub u16);
 
-#[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct LEu32(pub u32);
 
-#[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct LEu64(pub u64);
 
-#[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct LEu128(pub u128);
 
-#[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct LEi16(pub i16);
 
-#[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct LEi32(pub i32);
 
-#[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct LEi64(pub i64);
 
-#[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub struct LEi128(pub i128);
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct SplatVec<T>(pub Vec<T>);
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct DrainVec<T>(pub Vec<T>);
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum SplatDrain<T> {
     Splat(Vec<T>),
     Drain(Vec<T>),
@@ -54,7 +54,7 @@ impl<T> SplatDrain<T> {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct SizedVec<T>(pub Vec<T>);
 pub type SizeType = u32;
 
