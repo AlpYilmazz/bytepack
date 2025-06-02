@@ -54,9 +54,10 @@ impl<T> SplatDrain<T> {
     }
 }
 
+pub type SizeType = u32;
+
 #[derive(Debug, Clone)]
 pub struct SizedVec<T>(pub Vec<T>);
-pub type SizeType = u32;
 
 #[derive(Debug)]
 pub struct Throw<T, const N: usize>(PhantomData<fn() -> T>);

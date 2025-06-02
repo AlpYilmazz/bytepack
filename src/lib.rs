@@ -14,7 +14,7 @@ mod tests {
     use super::pack::*;
     use super::unpack::*;
 
-    //  | HEX               | DECIMAL 
+    //  | HEX               | DECIMAL
     //  | ----------------- | -----------------
     //  | 0xFF00AB08        | 4278233864
     //  | 0x08AB00FF        | 145424639
@@ -55,9 +55,12 @@ mod tests {
     #[test]
     fn test_main() {
         let test_struct = new_test_struct();
-        println!("{}, {}, {}, {}",
-            &test_struct.u8_field.byte_size(), &test_struct.leu32_field.byte_size(),
-            &test_struct.arr3_u32_field.byte_size(), &test_struct.box2_u16_field.byte_size(),
+        println!(
+            "{}, {}, {}, {}",
+            &test_struct.u8_field.byte_size(),
+            &test_struct.leu32_field.byte_size(),
+            &test_struct.arr3_u32_field.byte_size(),
+            &test_struct.box2_u16_field.byte_size(),
         );
 
         dbg!(&test_struct);
@@ -79,10 +82,7 @@ mod tests {
         let test_pack = TestPack {
             u8_field: 0x05,
             u32_field: LEu32(0xFF00AB08),
-            splat_vec_field: SplatVec(vec![
-                0x01, 0x02,
-                0xFF, 0x00,
-            ]),
+            splat_vec_field: SplatVec(vec![0x01, 0x02, 0xFF, 0x00]),
         };
 
         let buf = pack_value(&test_pack).unwrap();
